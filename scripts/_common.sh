@@ -113,6 +113,19 @@ myynh_install_python () {
 	
 # Install/Upgrade Homeassistant in virtual environement
 myynh_install_homeassistant () {
+
+	if [ $YNH_ARCH == "armhf" ] || [ $YNH_ARCH == "armel" ]
+	then
+	# Install rustup is not already installed
+	# We need this to be able to install cryptgraphy
+	export PATH="$PATH:$install_dir/.cargo/bin:$install_dir/.local/bin:/usr/local/sbin"
+	    if [ -e $install_dir/.rustup ]; then
+	    sudo -u "$app" env PATH=$PATH rustup update
+	    else
+	    sudo -u "$app" bash -c 'curl -sSf -L https://static.rust-lang.org/rustup.sh | sh -s -- -y --default-toolchain=stable --profile=minimal'
+	    fi
+	fi
+
 	# Create the virtual environment
 	ynh_exec_as $app $py_app_version -m venv --without-pip "$install_dir"
 	
