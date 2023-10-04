@@ -120,9 +120,9 @@ myynh_install_homeassistant () {
 	# We need this to be able to install cryptgraphy
 	    export PATH="$PATH:$install_dir/.cargo/bin:$install_dir/.local/bin:/usr/local/sbin"
 	    if [ -e $install_dir/.rustup ]; then
-	    	ynh_exec_as $app "env PATH=$PATH rustup update"
+	    	sudo -u "$app" env PATH=$PATH rustup update
 	    else
-	   	ynh_exec_as $app "bash -c 'curl -sSf -L https://static.rust-lang.org/rustup.sh | sh -s -- -y --default-toolchain=stable --profile=minimal'"
+	   	sudo -u "$app" bash -c 'curl -sSf -L https://static.rust-lang.org/rustup.sh | sh -s -- -y --default-toolchain=stable --profile=minimal'
 	    fi
 	fi
 
