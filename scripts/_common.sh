@@ -142,6 +142,9 @@ myynh_install_homeassistant () {
 		# install last version of pip
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "$pip_required"
 
+  		# install cython < 3.0 to make install works with pyyaml6.0
+		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "$pip_required"
+
 		# install last version of wheel
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade wheel
 
