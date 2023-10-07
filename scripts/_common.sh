@@ -111,21 +111,7 @@ myynh_install_python () {
 	ynh_app_setting_set --app=$app --key=python --value="$python"
 }
 	
-# Install/Upgrade Homeassistant in virtual environement
 myynh_install_homeassistant () {
-
-	if [ $YNH_ARCH == "armhf" ] || [ $YNH_ARCH == "armel" ]
-	then
-	# Install rustup is not already installed
-	# We need this to be able to install cryptgraphy
-	#    export PATH="$PATH:$install_dir/.cargo/bin:$install_dir/.local/bin:/usr/local/sbin"
-	 #   if [ -e $install_dir/.rustup ]; then
-	#    	sudo -u "$app" env PATH=$PATH rustup update
-	#    else
-	#   	sudo -u "$app" bash -c 'curl -sSf -L https://static.rust-lang.org/rustup.sh | sh -s -- -y --default-toolchain=stable --profile=minimal'
-	#    fi
-	fi
-
 	# Create the virtual environment
 	ynh_exec_as $app $py_app_version -m venv --without-pip "$install_dir"
 	
@@ -142,12 +128,8 @@ myynh_install_homeassistant () {
 		# install last version of pip
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "$pip_required"
 
-  		# install last version of wheel
+		# install last version of wheel
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade wheel
-
-  		# install cython < 3.0 to make install works with pyyaml6.0
-	#	ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "cython<3.0"
-		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --no-build-isolation "pyyaml==5.4.1"
 
 		# install last version of setuptools
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade setuptools
