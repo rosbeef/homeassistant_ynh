@@ -5,7 +5,7 @@
 #=================================================
 
 # Release to install
-app_version=2023.1.7
+app_version=2023.10.0
 
 # Requirements
 py_required_version=3.11.5
@@ -146,8 +146,8 @@ myynh_install_homeassistant () {
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade wheel
 
   		# install cython < 3.0 to make install works with pyyaml6.0
-		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "cython<3.0"
-		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --no-build-isolation "pyyaml==5.4.1"
+	#	ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "cython<3.0"
+		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --no-build-isolation "pyyaml==5.4.1"
 
 		# install last version of setuptools
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade setuptools
