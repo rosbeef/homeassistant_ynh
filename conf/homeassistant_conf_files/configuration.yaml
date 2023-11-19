@@ -37,3 +37,8 @@ sensor:
     jails:
       - __APP__
     file_path: /var/log/__APP__/__APP__.log
+
+image_processing:
+  - platform: opencv
+    source:
+      - entity_id: camera. cam_norte  
