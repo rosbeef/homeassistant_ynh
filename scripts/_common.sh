@@ -210,9 +210,9 @@ myynh_upgrade_venv_directory () {
 	find "$install_dir/lib/" -mindepth 1 -maxdepth 1 -type d -name "python*" \
 		-not -path "*/python${py_required_version%.*}" \
 		-exec bash -c 'rm --force --recursive "$1"' _ {} \;
-	find "$install_dir/include/site/" -mindepth 1 -maxdepth 1 -type d -name "python*" \
-		-not -path "*/python${py_required_version%.*}" \
-		-exec bash -c 'rm --force --recursive "$1"' _ {} \;
+	#find "$install_dir/include/site/" -mindepth 1 -maxdepth 1 -type d -name "python*" \
+	#	-not -path "*/python${py_required_version%.*}" \
+	#	-exec bash -c 'rm --force --recursive "$1"' _ {} \;
 	# Upgrade the virtual environment directory
 	ynh_exec_as $app $py_app_version -m venv --upgrade "$install_dir"
 }
