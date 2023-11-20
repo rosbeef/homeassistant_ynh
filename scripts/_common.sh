@@ -135,10 +135,13 @@ myynh_install_homeassistant () {
 
 		if [ $YNH_ARCH == "armhf" ] 
 		then
-			# install last version of PyNacl
+			# Install last version of PyNacl  
+   			# Because of error on post install : "Unable to set up dependencies of default_config. Setup failed for dependencies: mobile_app "
 			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade PyNacl
+   
 			# install last version of numpy (https://github.com/numpy/numpy/issues/24703)
-			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade numpy --config-settings=setup-args="-Dallow-noblas=true" 
+			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade numpy --config-settings=setup-args="-Dallow-noblas=true"
+   
 			# install last version of PyNacl (need cmake installed)
 			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade PyTurboJPEG
 			# need to recompile ffmpeg https://community.home-assistant.io/t/unable-to-install-package-ha-av/466286/31
@@ -186,7 +189,7 @@ myynh_install_homeassistant () {
 	  		#ynh_exec_warn_less cp "$data_dir/.cache/FFmpeg"/ffmpeg /usr/bin/
 	    
 			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade ha-av
-		#fi
+		fi
 		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "tflite-support==0.4.2"
 		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "tflite-runtime==2.11.0"
 
