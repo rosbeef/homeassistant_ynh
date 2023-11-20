@@ -133,8 +133,8 @@ myynh_install_homeassistant () {
 		# install last version of pip
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "$pip_required"
 
-	if [ $YNH_ARCH == "armhf" ] 
-		then
+		#if [ $YNH_ARCH == "armhf" ] 
+		#then
 			# install last version of PyNacl
 			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade PyNacl
 			# install last version of numpy (https://github.com/numpy/numpy/issues/24703)
@@ -153,8 +153,8 @@ myynh_install_homeassistant () {
 			#    --extra-libs="-lpthread -lm -latomic" \
 			#    --arch=armel \
 			#    --enable-gmp \
-			 #   --enable-gpl \
-			 #   --enable-libass \
+			#   --enable-gpl \
+			#   --enable-libass \
 			#    --enable-libdrm \
 			#    --enable-libfreetype \
 			#    --enable-libmp3lame \
@@ -179,14 +179,14 @@ myynh_install_homeassistant () {
 			#    --enable-pic \
 			#    --disable-static \
 			#    --enable-shared
-#	
+			#	
 			#ynh_exec_warn_less make -j$(nproc)
 			#ynh_exec_warn_less make install
 			#ynh_exec_warn_less ldconfig
 	  		#ynh_exec_warn_less cp "$data_dir/.cache/FFmpeg"/ffmpeg /usr/bin/
 	    
 			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade ha-av
-		fi
+		#fi
 		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "tflite-support==0.4.2"
 		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "tflite-runtime==2.11.0"
 
