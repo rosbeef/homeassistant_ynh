@@ -9,6 +9,7 @@ app_version=2023.11.2
 
 # Requirements
 if [ $YNH_ARCH == "armhf" ] 
+then
 	py_required_version=3.9.2
 else
 	py_required_version=3.11.6
