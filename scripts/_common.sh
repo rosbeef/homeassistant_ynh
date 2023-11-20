@@ -140,7 +140,7 @@ myynh_install_homeassistant () {
 			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade PyNacl
    
 			# install last version of numpy (https://github.com/numpy/numpy/issues/24703)
-			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade numpy --config-settings=setup-args="-Dallow-noblas=true"
+			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade numpy --config-settings=setup-args="-Dallow-noblas=true"
    
 			# install last version of PyNacl (need cmake installed)
 			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade PyTurboJPEG
