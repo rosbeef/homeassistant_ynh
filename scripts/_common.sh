@@ -133,12 +133,12 @@ myynh_install_homeassistant () {
 		# install last version of pip
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "$pip_required"
 
-		#if [ $YNH_ARCH == "armhf" ] 
-		#then
+		if [ $YNH_ARCH == "armhf" ] 
+		then
 			# install last version of PyNacl
-			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade PyNacl
+			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade PyNacl
 			# install last version of numpy (https://github.com/numpy/numpy/issues/24703)
-			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "numpy==1.22.4" --config-settings=setup-args="-Dallow-noblas=true" 
+			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade numpy --config-settings=setup-args="-Dallow-noblas=true" 
 			# install last version of PyNacl (need cmake installed)
 			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade PyTurboJPEG
 			# need to recompile ffmpeg https://community.home-assistant.io/t/unable-to-install-package-ha-av/466286/31
