@@ -7,6 +7,7 @@
 # Release to install
 app_version=2023.12.0
 
+
 # Requirements
 py_required_version=3.11.7
 pip_required="pip (>=21.3.1)"
