@@ -5,15 +5,11 @@
 #=================================================
 
 # Release to install
-app_version=2023.11.3
+app_version=2023.12.0
+
 
 # Requirements
-if [ $YNH_ARCH == "armhf" ] 
-then
-	py_required_version=3.9.2
-else
-	py_required_version=3.11.6
-fi
+py_required_version=3.11.7
 pip_required="pip (>=21.3.1)"
 
 # Fail2ban
