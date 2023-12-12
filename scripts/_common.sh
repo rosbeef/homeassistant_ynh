@@ -5,10 +5,12 @@
 #=================================================
 
 # Release to install
-app_version=2023.10.2
+
+app_version=2023.12.0
+
 
 # Requirements
-py_required_version=3.11.6
+py_required_version=3.11.7
 pip_required="pip (>=21.3.1)"
 
 # Fail2ban
@@ -111,7 +113,6 @@ myynh_install_python () {
 	ynh_app_setting_set --app=$app --key=python --value="$python"
 }
 	
-# Install/Upgrade Homeassistant in virtual environement
 myynh_install_homeassistant () {
 	# Create the virtual environment
 	ynh_exec_as $app $py_app_version -m venv --without-pip "$install_dir"
@@ -128,61 +129,68 @@ myynh_install_homeassistant () {
 		
 		# install last version of pip
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "$pip_required"
+
 		if [ $YNH_ARCH == "armhf" ] 
 		then
-			# install last version of PyNacl
+			# Install last version of PyNacl  
+   			# Because of error on post install : "Unable to set up dependencies of default_config. Setup failed for dependencies: mobile_app "
 			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade PyNacl
+   
 			# install last version of numpy (https://github.com/numpy/numpy/issues/24703)
-			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "numpy==1.26.0" --config-settings=setup-args="-Dallow-noblas=true" 
+			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "numpy==1.21.1" --config-settings=setup-args="-Dallow-noblas=true"
+   
 			# install last version of PyNacl (need cmake installed)
-			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade PyTurboJPEG
+			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade PyTurboJPEG
 			# need to recompile ffmpeg https://community.home-assistant.io/t/unable-to-install-package-ha-av/466286/31
-	 
-			ynh_exec_warn_less git clone --branch release/6.0 --depth 1 https://github.com/FFmpeg/FFmpeg.git "$data_dir/.cache/FFmpeg"
-	
-			cd "$data_dir/.cache/FFmpeg"
-			./configure \
-			    --extra-cflags="-I/usr/local/include" \
-			    --extra-ldflags="-L/usr/local/lib" \
-			    --extra-libs="-lpthread -lm -latomic" \
-			    --arch=armel \
-			    --enable-gmp \
-			    --enable-gpl \
-			    --enable-libass \
-			    --enable-libdrm \
-			    --enable-libfreetype \
-			    --enable-libmp3lame \
-			    --enable-libopencore-amrnb \
-			    --enable-libopencore-amrwb \
-			    --enable-libopus \
-			    --enable-librtmp \
-			    --enable-libsnappy \
-			    --enable-libsoxr \
-			    --enable-libssh \
-			    --enable-libvorbis \
-			    --enable-libwebp \
-			    --enable-libx264 \
-			    --enable-libx265 \
-			    --enable-libxml2 \
-			    --enable-nonfree \
-			    --enable-version3 \
-			    --target-os=linux \
-			    --enable-pthreads \
-			    --enable-openssl \
-			    --enable-hardcoded-tables \
-			    --enable-pic \
-			    --disable-static \
-			    --enable-shared
-	
-			ynh_exec_warn_less make -j$(nproc)
-			ynh_exec_warn_less make install
-			ynh_exec_warn_less ldconfig
-	  		ynh_exec_warn_less cp "$data_dir/.cache/FFmpeg"/ffmpeg /usr/bin/
+			
+    			#rm -rf "$data_dir/.cache/FFmpeg"
+			#ynh_exec_warn_less git clone --branch release/6.0 --depth 1 https://github.com/FFmpeg/FFmpeg.git "$data_dir/.cache/FFmpeg"
+			
+			#cd "$data_dir/.cache/FFmpeg"
+			#./configure \
+			#    --extra-cflags="-I/usr/local/include" \
+			#    --extra-ldflags="-L/usr/local/lib" \
+			#    --extra-libs="-lpthread -lm -latomic" \
+			#    --arch=armel \
+			#    --enable-gmp \
+			#   --enable-gpl \
+			#   --enable-libass \
+			#    --enable-libdrm \
+			#    --enable-libfreetype \
+			#    --enable-libmp3lame \
+			#    --enable-libopencore-amrnb \
+			#    --enable-libopencore-amrwb \
+			#    --enable-libopus \
+			#    --enable-librtmp \
+			#    --enable-libsnappy \
+			#    --enable-libsoxr \
+			#    --enable-libssh \
+			#    --enable-libvorbis \
+			#    --enable-libwebp \
+			#    --enable-libx264 \
+			#    --enable-libx265 \
+			#    --enable-libxml2 \
+			#    --enable-nonfree \
+			#    --enable-version3 \
+			#    --target-os=linux \
+			#    --enable-pthreads \
+			#    --enable-openssl \
+			#    --enable-hardcoded-tables \
+			#    --enable-pic \
+			#    --disable-static \
+			#    --enable-shared
+			#	
+			#ynh_exec_warn_less make -j$(nproc)
+			#ynh_exec_warn_less make install
+			#ynh_exec_warn_less ldconfig
+	   #ynh_exec_warn_less cp "$data_dir/.cache/FFmpeg"/ffmpeg /usr/bin/
 	    
-			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade ha-av
+			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade ha-av
 		fi
-  
-  		# install last version of wheel
+		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "tflite-support==0.4.2"
+		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "tflite-runtime==2.11.0"
+
+		# install last version of wheel
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade wheel
 
 		# install last version of setuptools
@@ -202,15 +210,16 @@ myynh_upgrade_venv_directory () {
 	# Remove old python links before recreating them
 	find "$install_dir/bin/" -type l -name 'python*' \
 		-exec bash -c 'rm --force "$1"' _ {} \;
-	
+
+
 	# Remove old python directories before recreating them
 	find "$install_dir/lib/" -mindepth 1 -maxdepth 1 -type d -name "python*" \
 		-not -path "*/python${py_required_version%.*}" \
 		-exec bash -c 'rm --force --recursive "$1"' _ {} \;
-	find "$install_dir/include/site/" -mindepth 1 -maxdepth 1 -type d -name "python*" \
-		-not -path "*/python${py_required_version%.*}" \
-		-exec bash -c 'rm --force --recursive "$1"' _ {} \;
-	
+	#find "$install_dir/include/site/" -mindepth 1 -maxdepth 1 -type d -name "python*" \
+	#	-not -path "*/python${py_required_version%.*}" \
+	#	-exec bash -c 'rm --force --recursive "$1"' _ {} \;
+
 	# Upgrade the virtual environment directory
 	ynh_exec_as $app $py_app_version -m venv --upgrade "$install_dir"
 }
