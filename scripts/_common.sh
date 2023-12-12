@@ -5,6 +5,7 @@
 #=================================================
 
 # Release to install
+
 app_version=2023.12.0
 
 
@@ -182,14 +183,14 @@ myynh_install_homeassistant () {
 			#ynh_exec_warn_less make -j$(nproc)
 			#ynh_exec_warn_less make install
 			#ynh_exec_warn_less ldconfig
-	  		#ynh_exec_warn_less cp "$data_dir/.cache/FFmpeg"/ffmpeg /usr/bin/
+	   #ynh_exec_warn_less cp "$data_dir/.cache/FFmpeg"/ffmpeg /usr/bin/
 	    
 			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade ha-av
 		fi
 		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "tflite-support==0.4.2"
 		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "tflite-runtime==2.11.0"
 
-  		# install last version of wheel
+		# install last version of wheel
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade wheel
 
 		# install last version of setuptools
@@ -210,6 +211,7 @@ myynh_upgrade_venv_directory () {
 	find "$install_dir/bin/" -type l -name 'python*' \
 		-exec bash -c 'rm --force "$1"' _ {} \;
 
+
 	# Remove old python directories before recreating them
 	find "$install_dir/lib/" -mindepth 1 -maxdepth 1 -type d -name "python*" \
 		-not -path "*/python${py_required_version%.*}" \
@@ -217,6 +219,7 @@ myynh_upgrade_venv_directory () {
 	#find "$install_dir/include/site/" -mindepth 1 -maxdepth 1 -type d -name "python*" \
 	#	-not -path "*/python${py_required_version%.*}" \
 	#	-exec bash -c 'rm --force --recursive "$1"' _ {} \;
+
 	# Upgrade the virtual environment directory
 	ynh_exec_as $app $py_app_version -m venv --upgrade "$install_dir"
 }
