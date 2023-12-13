@@ -8,7 +8,7 @@
 app_version=2023.12.0
 
 # Requirements
-py_required_version=3.11.7
+py_required_version=3.12.1
 pip_required="pip (>=21.3.1)"
 
 # Fail2ban
@@ -135,7 +135,7 @@ myynh_install_homeassistant () {
 			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade PyNacl
    
 			# install last version of numpy (https://github.com/numpy/numpy/issues/24703)
-			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "numpy==1.21.1" --config-settings=setup-args="-Dallow-noblas=true"
+			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "numpy==1.26.2" --config-settings=setup-args="-Dallow-noblas=true"
    
 			# install last version of PyNacl (need cmake installed)
 			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade PyTurboJPEG
