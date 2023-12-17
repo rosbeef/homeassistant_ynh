@@ -139,9 +139,13 @@ myynh_install_homeassistant () {
    
 			# install last version of numpy (https://github.com/numpy/numpy/issues/24703)
 			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "aiohttp>=3.9.1" 
-   
+
+   		    # only if camera related services used:
 			# install last version of PyNacl (need cmake installed)
 			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "PyTurboJPEG>=1.7.3"
+			
+   			# install last version of nenja (needed by cmake)
+			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "ninja>=1.11.1.1"
 			
    			# need to recompile ffmpeg https://community.home-assistant.io/t/unable-to-install-package-ha-av/466286/31
     			#rm -rf "$data_dir/.cache/FFmpeg"
