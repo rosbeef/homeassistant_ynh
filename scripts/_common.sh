@@ -148,47 +148,47 @@ myynh_install_homeassistant () {
 			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "ninja>=1.11.1.1"
 			
    			# need to recompile ffmpeg https://community.home-assistant.io/t/unable-to-install-package-ha-av/466286/31
-    			#rm -rf "$data_dir/.cache/FFmpeg"
-			#ynh_exec_warn_less git clone --branch release/6.0 --depth 1 https://github.com/FFmpeg/FFmpeg.git "$data_dir/.cache/FFmpeg"
+    			rm -rf "$data_dir/.cache/FFmpeg"
+			ynh_exec_warn_less git clone --branch release/6.0 --depth 1 https://github.com/FFmpeg/FFmpeg.git "$data_dir/.cache/FFmpeg"
 			
-			#cd "$data_dir/.cache/FFmpeg"
-			#./configure \
-			#    --extra-cflags="-I/usr/local/include" \
-			#    --extra-ldflags="-L/usr/local/lib" \
-			#    --extra-libs="-lpthread -lm -latomic" \
-			#    --arch=armel \
-			#    --enable-gmp \
-			#   --enable-gpl \
-			#   --enable-libass \
-			#    --enable-libdrm \
-			#    --enable-libfreetype \
-			#    --enable-libmp3lame \
-			#    --enable-libopencore-amrnb \
-			#    --enable-libopencore-amrwb \
-			#    --enable-libopus \
-			#    --enable-librtmp \
-			#    --enable-libsnappy \
-			#    --enable-libsoxr \
-			#    --enable-libssh \
-			#    --enable-libvorbis \
-			#    --enable-libwebp \
-			#    --enable-libx264 \
-			#    --enable-libx265 \
-			#    --enable-libxml2 \
-			#    --enable-nonfree \
-			#    --enable-version3 \
-			#    --target-os=linux \
-			#    --enable-pthreads \
-			#    --enable-openssl \
-			#    --enable-hardcoded-tables \
-			#    --enable-pic \
-			#    --disable-static \
-			#    --enable-shared
-			#	
-			#ynh_exec_warn_less make -j$(nproc)
-			#ynh_exec_warn_less make install
-			#ynh_exec_warn_less ldconfig
-	   #ynh_exec_warn_less cp "$data_dir/.cache/FFmpeg"/ffmpeg /usr/bin/
+			cd "$data_dir/.cache/FFmpeg"
+			./configure \
+			    --extra-cflags="-I/usr/local/include" \
+			    --extra-ldflags="-L/usr/local/lib" \
+			    --extra-libs="-lpthread -lm -latomic" \
+			    --arch=armel \
+			    --enable-gmp \
+			    --enable-gpl \
+			    --enable-libass \
+			    --enable-libdrm \
+			    --enable-libfreetype \
+			    --enable-libmp3lame \
+			    --enable-libopencore-amrnb \
+			    --enable-libopencore-amrwb \
+			    --enable-libopus \
+			    --enable-librtmp \
+			    --enable-libsnappy \
+			    --enable-libsoxr \
+			    --enable-libssh \
+			    --enable-libvorbis \
+			    --enable-libwebp \
+			    --enable-libx264 \
+			    --enable-libx265 \
+			    --enable-libxml2 \
+			    --enable-nonfree \
+			    --enable-version3 \
+			    --target-os=linux \
+			    --enable-pthreads \
+			    --enable-openssl \
+			    --enable-hardcoded-tables \
+			    --enable-pic \
+			    --disable-static \
+			    --enable-shared
+				
+			ynh_exec_warn_less make -j$(nproc)
+			ynh_exec_warn_less make install
+			ynh_exec_warn_less ldconfig
+	   		ynh_exec_warn_less cp "$data_dir/.cache/FFmpeg"/ffmpeg /usr/bin/
 	    
 			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade ha-av
 		fi
