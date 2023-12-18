@@ -148,7 +148,7 @@ myynh_install_homeassistant () {
 			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "ninja>=1.11.1.1"
 			
    			# need to recompile ffmpeg https://community.home-assistant.io/t/unable-to-install-package-ha-av/466286/31
-    			rm -rf "$data_dir/.cache/FFmpeg"
+    			ynh_secure_remove "$data_dir/.cache/FFmpeg"
 			ynh_exec_warn_less git clone --branch release/6.0 --depth 1 https://github.com/FFmpeg/FFmpeg.git "$data_dir/.cache/FFmpeg"
 			
 			cd "$data_dir/.cache/FFmpeg"
