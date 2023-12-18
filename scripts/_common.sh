@@ -8,7 +8,7 @@
 app_version=2023.12.3
 
 # Requirements
-py_required_version=3.12.1
+py_required_version=3.10.13
 pip_required="pip (>=21.3.1)"
 
 # Fail2ban
@@ -135,7 +135,7 @@ myynh_install_homeassistant () {
 			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade PyNacl
    
 			# install last version of numpy (https://github.com/numpy/numpy/issues/24703)
-			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "numpy>=1.26.2" --config-settings=setup-args="-Dallow-noblas=true"
+			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "numpy>=1.21.2" --config-settings=setup-args="-Dallow-noblas=true"
    
 			# install last version of numpy (https://github.com/numpy/numpy/issues/24703)
 			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "aiohttp>=3.9.1" 
@@ -148,7 +148,7 @@ myynh_install_homeassistant () {
 			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "ninja>=1.11.1.1"
 			
    			# need to recompile ffmpeg https://community.home-assistant.io/t/unable-to-install-package-ha-av/466286/31
-    			rm -rf "$data_dir/.cache/FFmpeg"
+    			ynh_secure_remove "$data_dir/.cache/FFmpeg"
 			ynh_exec_warn_less git clone --branch release/6.0 --depth 1 https://github.com/FFmpeg/FFmpeg.git "$data_dir/.cache/FFmpeg"
 			
 			cd "$data_dir/.cache/FFmpeg"
