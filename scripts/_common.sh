@@ -191,7 +191,7 @@ myynh_install_homeassistant () {
 	   		ynh_exec_warn_less cp "$data_dir/.cache/FFmpeg"/ffmpeg /usr/bin/
 	    
 			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade ha-av
-			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "opencv-python-headles>=4.8.1.78"
+			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "opencv-python-headles>=4.7.0.72"
 		fi
 		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "tflite-support==0.4.2"
 		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "tflite-runtime==2.11.0"
