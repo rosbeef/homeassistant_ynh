@@ -202,7 +202,10 @@ myynh_install_homeassistant () {
 		# install last version of setuptools
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade setuptools
 
-		# install last version of mysqlclient
+		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade ha-av
+		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "opencv-python-headless"
+		
+  		# install last version of mysqlclient
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade mysqlclient
 		
 		# install Home Assistant
