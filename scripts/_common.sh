@@ -128,7 +128,13 @@ myynh_install_homeassistant () {
 		# install last version of pip
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "$pip_required"
 
-		if [ $YNH_ARCH == "armhf" ] 
+		# install last version of wheel
+		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade wheel
+
+		# install last version of setuptools
+		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade setuptools
+
+  		if [ $YNH_ARCH == "armhf" ] 
 		then
 			# Install last version of PyNacl  
    			# Because of error on post install : "Unable to set up dependencies of default_config. Setup failed for dependencies: mobile_app "
@@ -195,12 +201,6 @@ myynh_install_homeassistant () {
 		fi
 		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "tflite-support==0.4.2"
 		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "tflite-runtime==2.11.0"
-
-		# install last version of wheel
-		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade wheel
-
-		# install last version of setuptools
-		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade setuptools
 
 		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade ha-av
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "opencv-python-headless"
