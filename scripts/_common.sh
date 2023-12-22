@@ -131,6 +131,9 @@ myynh_install_homeassistant () {
 		# install last version of wheel
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade wheel
 
+		# install last version of wheel
+		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade cmake
+
 		# install last version of setuptools
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade setuptools
 
