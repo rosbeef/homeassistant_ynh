@@ -124,7 +124,8 @@ myynh_install_homeassistant () {
 		
 		# add pip
 		ynh_exec_as $app "$install_dir/bin/python3" -m ensurepip
-		
+
+  		ynh_exec_warn_less ynh_exec_as $app "export PIP_ONLY_BINARY=cmake"
 		# install last version of setuptools
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade setuptools
 
@@ -135,7 +136,7 @@ myynh_install_homeassistant () {
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade wheel
 
 		# install last version of wheel
-		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade cmake
+		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade cmake
 
   		if [ $YNH_ARCH == "armhf" ] 
 		then
