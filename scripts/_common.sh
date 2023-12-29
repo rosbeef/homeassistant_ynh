@@ -126,7 +126,7 @@ myynh_install_homeassistant () {
 		ynh_exec_as $app "$install_dir/bin/python3" -m ensurepip
     
 		# install last version of setuptools
-		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --prefer-binary --upgrade setuptools"
+		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --prefer-binary --upgrade setuptools
 
   		# install last version of pip
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "$pip_required"
