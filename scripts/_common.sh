@@ -5,10 +5,10 @@
 #=================================================
 
 # Release to install
-app_version=2023.12.3
+app_version=2023.12.4
 
 # Requirements
-py_required_version=3.10.13
+py_required_version=3.12.1
 pip_required="pip (>=21.3.1)"
 
 # Fail2ban
@@ -124,11 +124,20 @@ myynh_install_homeassistant () {
 		
 		# add pip
 		ynh_exec_as $app "$install_dir/bin/python3" -m ensurepip
-		
-		# install last version of pip
+    
+  		# install last version of pip
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "$pip_required"
 
-		if [ $YNH_ARCH == "armhf" ] 
+		# install last version of wheel
+		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade wheel
+
+		# install last version of setuptools
+		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade setuptools
+
+		# install last version of wheel
+		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade cmake
+
+  		if [ $YNH_ARCH == "armhf" ] 
 		then
 			# Install last version of PyNacl  
    			# Because of error on post install : "Unable to set up dependencies of default_config. Setup failed for dependencies: mobile_app "
@@ -143,10 +152,7 @@ myynh_install_homeassistant () {
    		    # only if camera related services used:
 			# install last version of PyNacl (need cmake installed)
 			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "PyTurboJPEG>=1.7.3"
-			
-   			# install last version of ninja (needed by cmake)
-			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "ninja>=1.11.1.1"
-			
+						
    			# need to recompile ffmpeg https://community.home-assistant.io/t/unable-to-install-package-ha-av/466286/31
     			ynh_secure_remove "$data_dir/.cache/FFmpeg"
 			ynh_exec_warn_less git clone --branch release/6.0 --depth 1 https://github.com/FFmpeg/FFmpeg.git "$data_dir/.cache/FFmpeg"
@@ -190,18 +196,15 @@ myynh_install_homeassistant () {
 			ynh_exec_warn_less ldconfig
 	   		ynh_exec_warn_less cp "$data_dir/.cache/FFmpeg"/ffmpeg /usr/bin/
 	    
-			#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade ha-av
 		fi
-		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "tflite-support==0.4.2"
+		# install last version of ninja (needed by cmake)
+		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "ninja>=1.11.1.1"
+		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade ha-av
+		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "opencv-python-headless"
+  		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "tflite-support==0.4.2"
 		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "tflite-runtime==2.11.0"
-
-		# install last version of wheel
-		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade wheel
-
-		# install last version of setuptools
-		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade setuptools
-
-		# install last version of mysqlclient
+		
+  		# install last version of mysqlclient
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade mysqlclient
 		
 		# install Home Assistant
