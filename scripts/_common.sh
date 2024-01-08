@@ -128,18 +128,6 @@ myynh_install_homeassistant () {
   		# install last version of pip
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "$pip_required"
 
-    		if [ $YNH_ARCH == "armhf" ] || [ $YNH_ARCH == "armel" ]
-		then
-		# Install rustup is not already installed
-		# We need this to be able to install cryptgraphy
-		export PATH="$PATH:$install_dir/.cargo/bin:$install_dir/.local/bin:/usr/local/sbin"
-		    if [ -e $install_dir/.rustup ]; then
-		    sudo -u "$app" env PATH=$PATH rustup update
-		    else
-		    sudo -u "$app" bash -c 'curl -sSf -L https://static.rust-lang.org/rustup.sh | sh -s -- -y --default-toolchain=stable --profile=minimal'
-		    fi
-		fi
-
   		# install last version of wheel
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade wheel
 
@@ -149,7 +137,7 @@ myynh_install_homeassistant () {
 		# install last version of wheel
 		#ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade cmake
 
-  		if [ $YNH_ARCH == "armhf" ] 
+  		if [ $YNH_ARCH == "armhf" ] || [ $YNH_ARCH == "armel" ]
 		then
 			# Install last version of PyNacl  
    			# Because of error on post install : "Unable to set up dependencies of default_config. Setup failed for dependencies: mobile_app "
@@ -157,7 +145,16 @@ myynh_install_homeassistant () {
    
 			# install last version of numpy (https://github.com/numpy/numpy/issues/24703)
 			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "numpy>=1.21.2" --config-settings=setup-args="-Dallow-noblas=true"
-   
+
+   			# Install rustup is not already installed
+			# We need this to be able to install cryptgraphy
+			export PATH="$PATH:$install_dir/.cargo/bin:$install_dir/.local/bin:/usr/local/sbin"
+			if [ -e $install_dir/.rustup ]; then
+				sudo -u "$app" env PATH=$PATH rustup update
+			else
+				sudo -u "$app" bash -c 'curl -sSf -L https://static.rust-lang.org/rustup.sh | sh -s -- -y --default-toolchain=stable --profile=minimal'
+			fi
+      
 			# install last version of numpy (https://github.com/numpy/numpy/issues/24703)
 			ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "aiohttp>=3.9.1" 
 
