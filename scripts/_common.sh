@@ -8,7 +8,7 @@
 app_version=2023.12.4
 
 # Requirements
-py_required_version=3.11.7
+py_required_version=3.12.1
 pip_required="pip (>=21.3.1)"
 
 # Fail2ban
