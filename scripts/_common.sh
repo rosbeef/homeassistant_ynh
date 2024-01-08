@@ -124,6 +124,9 @@ myynh_install_homeassistant () {
 		
 		# add pip
 		ynh_exec_as $app "$install_dir/bin/python3" -m ensurepip
+  
+  		# install last version of pip
+		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "$pip_required"
 
     		if [ $YNH_ARCH == "armhf" ] || [ $YNH_ARCH == "armel" ]
 		then
@@ -136,11 +139,8 @@ myynh_install_homeassistant () {
 		    sudo -u "$app" bash -c 'curl -sSf -L https://static.rust-lang.org/rustup.sh | sh -s -- -y --default-toolchain=stable --profile=minimal'
 		    fi
 		fi
-  
-  		# install last version of pip
-		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade "$pip_required"
 
-		# install last version of wheel
+  		# install last version of wheel
 		ynh_exec_warn_less ynh_exec_as $app "$install_dir/bin/pip3" --cache-dir "$data_dir/.cache" install --upgrade wheel
 
 		# install last version of setuptools
