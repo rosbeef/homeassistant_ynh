@@ -168,6 +168,10 @@ myynh_install_homeassistant () {
 						
    			# need to recompile ffmpeg https://community.home-assistant.io/t/unable-to-install-package-ha-av/466286/31
     			ynh_secure_remove "$data_dir/.cache/FFmpeg"
+       			ynh_exec_warn_less git config --global --unset http.extraheader
+       			ynh_exec_warn_less git config --global --unset http.postbuffer
+       			ynh_exec_warn_less git config --global --unset http.version
+       			ynh_exec_warn_less git config --global --unset http.sslverify
 			ynh_exec_warn_less git clone --branch release/6.0 --depth 1 https://github.com/FFmpeg/FFmpeg.git "$data_dir/.cache/FFmpeg"
 			
 			cd "$data_dir/.cache/FFmpeg"
