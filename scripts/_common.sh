@@ -5,11 +5,11 @@
 #=================================================
 
 # Release to install
-app_version=2024.1.2
+app_version=2024.12.3
 
 # Requirements
-py_required_version=3.12.1
-pip_required="pip (>=21.3.1)"
+py_required_version=3.12.8
+pip_required=""
 
 # Fail2ban
 failregex="^%(__prefix_line)s.*\[homeassistant.components.http.ban\] Login attempt or request with invalid authentication from.* \(<HOST>\).* Requested URL: ./auth/.*"
